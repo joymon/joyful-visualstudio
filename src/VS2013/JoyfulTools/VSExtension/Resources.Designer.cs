@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Joymon.MultipleBlankLinesToSingle {
+namespace JoyfulTools.VSExtension {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Joymon.MultipleBlankLinesToSingle {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Joymon.MultipleBlankLinesToSingle.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JoyfulTools.VSExtension.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
