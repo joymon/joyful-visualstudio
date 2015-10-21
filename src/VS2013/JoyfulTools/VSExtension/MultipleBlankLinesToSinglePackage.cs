@@ -40,20 +40,6 @@ namespace JoyfulTools.VSExtension
     [ProvideAutoLoad("f1536ef8-92ec-443c-9ed7-fdadf150da82")]
     public sealed class MultipleBlankLinesToSinglePackage : Package
     {
-        /// <summary>
-        /// Default constructor of the package.
-        /// Inside this method you can place any initialization code that does not require 
-        /// any Visual Studio service because at this point the package object is created but 
-        /// not sited yet inside Visual Studio environment. The place to do all the other 
-        /// initialization is the Initialize method.
-        /// </summary>
-        public MultipleBlankLinesToSinglePackage()
-        {
-            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
-        }
-
-
-
         /////////////////////////////////////////////////////////////////////////////
         // Overriden Package Implementation
         #region Package Members
@@ -64,7 +50,6 @@ namespace JoyfulTools.VSExtension
         /// </summary>
         protected override void Initialize()
         {
-            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
             base.Initialize();
 
             // Add our command handlers for menu (commands must exist in the .vsct file)
@@ -85,6 +70,7 @@ namespace JoyfulTools.VSExtension
             var menuCommand = sender as OleMenuCommand;
             menuCommand.Enabled = ! string.IsNullOrWhiteSpace(GetCurrentFileNameUsingDTE());
         }
+   
         /// <summary>
         /// This function is the callback used to execute a command when the a menu item is clicked.
         /// See the Initialize method to see how the menu item is associated to this function using
@@ -126,8 +112,6 @@ namespace JoyfulTools.VSExtension
         }
         private void ReplaceMultipleBlankLinesWithOne()
         {
-            //TryUsingDTE();
-            // Show a Message Box to prove we were here
             string fileNameDTE = GetCurrentFileNameUsingDTE();
             string fileName = GetCurrentFileName();
 
@@ -151,13 +135,9 @@ namespace JoyfulTools.VSExtension
 
                         string text = textBuffer.CurrentSnapshot.GetText();
                         string replacedText = Regex.Replace(text, @"\n\s*\n\s*\n", "\n\n",RegexOptions.Multiline);
-                        //
-                        //string replacedText = Regex.Replace(text, @"^:b*\n:b*\n", @"\n");
                         ITextEdit edit = textBuffer.CreateEdit();
                         edit.Replace(0, text.Length, replacedText);
                         edit.Apply();
-
-                        //ShowMessage(text);
                     }
                 }
             }
