@@ -38,7 +38,7 @@ namespace JoyfulTools.VSExtension
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(GuidList.guidMultipleBlankLinesToSinglePkgString)]
     [ProvideAutoLoad("f1536ef8-92ec-443c-9ed7-fdadf150da82")]
-    public sealed class MultipleBlankLinesToSinglePackage : Package
+    public sealed class MenuPackage : Package
     {
         /////////////////////////////////////////////////////////////////////////////
         // Overriden Package Implementation
