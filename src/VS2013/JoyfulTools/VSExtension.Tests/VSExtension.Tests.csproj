@@ -56,7 +56,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CommentedCodeRemover_Remove.cs" />
+    <Compile Include="CommentedCodeRemover_RemoveFromCSCode.cs" />
     <Compile Include="MultipleBlankLinesRemover_GetReplacedText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
