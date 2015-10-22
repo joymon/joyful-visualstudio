@@ -7,8 +7,8 @@
     <ProjectGuid>{F7AD81C2-CC53-4AD9-8D87-EA43E18DA9C3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MultipleBlankLinesToSingle_IntegrationTests</RootNamespace>
-    <AssemblyName>MultipleBlankLinesToSingle_IntegrationTests</AssemblyName>
+    <RootNamespace>VSExtension.IntegrationTests</RootNamespace>
+    <AssemblyName>VSExtension.IntegrationTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -74,13 +74,13 @@
     <Compile Include="SignOff-Tests\VBProjectTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Key.snk" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\VSExtension\VSExtension.csproj">
       <Project>{4ecb9ac7-b424-4ddf-9792-90a829dc8e3a}</Project>
       <Name>VSExtension</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Key.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
