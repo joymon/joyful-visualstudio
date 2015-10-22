@@ -14,18 +14,26 @@ using Microsoft.VisualStudio.TextManager.Interop;
 
 namespace JoyfulTools.VSExtension
 {
-    class RemoveMultipleBlankLinesCommand :OleMenuCommand
+    class RemoveMultipleBlankLinesCommand : OleMenuCommand
     {
-        public RemoveMultipleBlankLinesCommand() : base((sender,args) =>{ MenuItemCallback(sender, args); }, 
-            new CommandID(GuidList.guidMultipleBlankLinesToSingleCmdSet, (int)PkgCmdIDList.cmdidRemMulBlanks)) {
+        #region Constructor
+        public RemoveMultipleBlankLinesCommand() : base((sender, args) => { MenuItemCallback(sender, args); },
+            new CommandID(GuidList.guidMultipleBlankLinesToSingleCmdSet, (int)PkgCmdIDList.cmdidRemMulBlanks))
+        {
             this.BeforeQueryStatus += OleMenuCommand_BeforeQueryStatus;
         }
+        #endregion
 
+        #region MenuCommand Related
         private void OleMenuCommand_BeforeQueryStatus(object sender, EventArgs e)
         {
-            this.Enabled = !string.IsNullOrWhiteSpace(VisualStudioEnvironment.GetCurrentFileNameUsingDTE());
+            EnableMeIfThereIsFileOpenedInVisualStudio();
         }
-        
+
+        private void EnableMeIfThereIsFileOpenedInVisualStudio()
+        {
+            this.Enabled = string.IsNullOrWhiteSpace(VisualStudioEnvironment.GetCurrentFileNameUsingDTE()) ? false : true;
+        }
         /// <summary>
         /// This function is the callback used to execute a command when the a menu item is clicked.
         /// See the Initialize method to see how the menu item is associated to this function using
@@ -35,45 +43,83 @@ namespace JoyfulTools.VSExtension
         {
             (sender as RemoveMultipleBlankLinesCommand).ReplaceMultipleBlankLinesWithOne();
         }
+        #endregion
+
+        #region Actual Logic
         private void ReplaceMultipleBlankLinesWithOne()
         {
-            string fileNameDTE = VisualStudioEnvironment.GetCurrentFileNameUsingDTE();
+            string text = GetContentsFromActiveVisualStudioEditor();
+            string replacedText = MultipleBlankLinesRemover.GetReplacedText(text);
+            SetContensToActiveVisualStudioEditor(text, replacedText);
+        }
+        #endregion
 
-            IVsTextView textView;
-            IVsTextManager txtMgr = VisualStudioServicesProvider.VSTextManager.Value;
-            int mustHaveFocus = 1;
-            txtMgr.GetActiveView(mustHaveFocus, null, out textView);
+        #region Helpers
+
+        private ITextBuffer GetTextBuffer()
+        {
+            ITextBuffer textBuffer = null;
+            IVsTextView textView = GetVSTextView();
             if (textView != null)
             {
-                IComponentModel componentModel = VisualStudioServicesProvider.ComponentModel.Value;
-                IVsEditorAdaptersFactoryService editorAdapterService = componentModel.GetService<IVsEditorAdaptersFactoryService>();
-
                 IVsTextLines lines;
                 if (textView.GetBuffer(out lines) == 0)
                 {
-
-                    var buffer = lines as IVsTextBuffer;
-                    if (buffer != null)
-                    {
-                        ITextBuffer textBuffer = editorAdapterService.GetDataBuffer(buffer);
-
-                        string text = textBuffer.CurrentSnapshot.GetText();
-                        string replacedText = Regex.Replace(text, @"\n\s*\n\s*\n", "\n\n", RegexOptions.Multiline);
-                        ITextEdit edit = textBuffer.CreateEdit();
-                        edit.Replace(0, text.Length, replacedText);
-                        edit.Apply();
-                    }
+                    textBuffer = GetTextBufferFromVSTextLines(lines);
                 }
             }
-            //Microsoft.VisualStudio.OLE.Interop.IServiceProvider sp = Package.GetGlobalService(typeof(Microsoft.VisualStudio.OLE.Interop.IServiceProvider)) as Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
-
-
-            //IWpfTextView wpfViewCurrent = editorAdapterService.GetWpfTextView(textView);
-
-            //ITextBuffer textCurrent = wpfViewCurrent.;
-            //IVsTextLines textLines;
-            //textView.GetBuffer(out textLines);
+            return textBuffer;
         }
+
+        private static ITextBuffer GetTextBufferFromVSTextLines(IVsTextLines lines)
+        {
+            ITextBuffer textBuffer = null;
+            var buffer = lines as IVsTextBuffer;
+            if (buffer != null)
+            {
+                IVsEditorAdaptersFactoryService editorAdapterService = GetVSEditorAdaptorsFactoryServiceFromCompomentModel();
+                textBuffer = editorAdapterService.GetDataBuffer(buffer);
+            }
+
+            return textBuffer;
+        }
+
+        private string GetContentsFromActiveVisualStudioEditor()
+        {
+            string text = string.Empty;
+            ITextBuffer textBuffer = GetTextBuffer();
+            text = textBuffer.CurrentSnapshot.GetText();
+            return text;
+        }
+        private void SetContensToActiveVisualStudioEditor(string oldText, string newText)
+        {
+            ITextBuffer textBuffer = GetTextBuffer();
+            ReplaceContentsInsideTextBuffer(textBuffer, oldText, newText);
+        }
+
+        private static IVsTextView GetVSTextView()
+        {
+            IVsTextView textView;
+            IVsTextManager txtMgr = VisualStudioServicesProvider.VSTextManager.Value;
+            int mustHaveFocus = 1;
+            int result = txtMgr.GetActiveView(mustHaveFocus, null, out textView);
+            return textView;
+        }
+
+        private static IVsEditorAdaptersFactoryService GetVSEditorAdaptorsFactoryServiceFromCompomentModel()
+        {
+            IComponentModel componentModel = VisualStudioServicesProvider.ComponentModel.Value;
+            IVsEditorAdaptersFactoryService editorAdapterService = componentModel.GetService<IVsEditorAdaptersFactoryService>();
+            return editorAdapterService;
+        }
+
+        private static void ReplaceContentsInsideTextBuffer(ITextBuffer textBuffer, string oldText, string newText)
+        {
+            ITextEdit edit = textBuffer.CreateEdit();
+            edit.Replace(0, oldText.Length, newText);
+            edit.Apply();
+        }
+
         private void TryUsingDTE()
         {
             TextDocument td = VisualStudioServicesProvider.DTE2.Value.ActiveDocument.Object() as TextDocument;
@@ -82,6 +128,6 @@ namespace JoyfulTools.VSExtension
             ep.ReplacePattern(td.StartPoint, @"^:b*\n:b*\n", @"\n");
 
         }
-
+        #endregion
     }
 }
