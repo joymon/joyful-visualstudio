@@ -1,2 +1,2 @@
 before_build:
-  - nuget restore %solutionFile%
+  - nuget restore src\VS2013\JoyfulTools.sln
