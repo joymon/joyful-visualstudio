@@ -21,6 +21,64 @@ How are you doing hello";
             string actualOutput = VBCommentedCodeRemover.Remove(inputCode);
             Assert.AreEqual(expected, actualOutput);
         }
+        [TestMethod]
+        public void WhenInputContainsSingleLineComment_Remove()
+        {
+            string inputCode = @"dim a as Int32
+'How are you doing hello
+a=a+1";
+            string expected = @"dim a as Int32
 
+a=a+1";
+            string actualOutput = VBCommentedCodeRemover.Remove(inputCode);
+            Assert.AreEqual(expected, actualOutput);
+        }
+        [TestMethod]
+        public void WhenInputContainsXMLComment_ShouldNotRemove()
+        {
+            string inputCode = @"dim a as Int32
+'''<summary>How are you doing hello</summary>
+private Sub Test(a as Int32)
+a=a+1
+End Sub";
+            string expected = @"dim a as Int32
+'''<summary>How are you doing hello</summary>
+private Sub Test(a as Int32)
+a=a+1
+End Sub";
+            string actualOutput = VBCommentedCodeRemover.Remove(inputCode);
+            Assert.AreEqual(expected, actualOutput);
+        }
+        [TestMethod]
+        public void WhenInputContains3SingleQuitesToMimicXMLComment_ShouldRemove()
+        {
+            string inputCode = @"dim a as Int32
+'''How are you doing hello
+private Sub Test(a as Int32)
+a=a+1
+End Sub";
+            string expected = @"dim a as Int32
+private Sub Test(a as Int32)
+a=a+1
+End Sub";
+            string actualOutput = VBCommentedCodeRemover.Remove(inputCode);
+            Assert.AreEqual(expected, actualOutput);
+        }
+        [TestMethod]
+        public void WhenInputContainsValidAndInvalidXMLComments_ShouldRemove()
+        {
+            string inputCode = @"dim a as Int32
+'''How are you doing hello
+'''<summary>Proper</summary>
+private Sub Test(a as Int32)
+a=a+1
+End Sub";
+            string expected = @"dim a as Int32
+private Sub Test(a as Int32)
+a=a+1
+End Sub";
+            string actualOutput = VBCommentedCodeRemover.Remove(inputCode);
+            Assert.AreEqual(expected, actualOutput);
+        }
     }
 }
