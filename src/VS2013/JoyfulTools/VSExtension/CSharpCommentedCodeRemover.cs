@@ -8,9 +8,9 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace JoyfulTools.VSExtension
 {
-    class CommentedCodeRemover
+    class CSharpCommentedCodeRemover
     {
-        internal static string RemoveFromCSCode(string inputCode)
+        internal static string Remove(string inputCode)
         {
             SyntaxTree tree = CSharpSyntaxTree.ParseText(inputCode);
             IEnumerable<SyntaxTrivia> commentTrivias =tree.GetRoot().DescendantTrivia();

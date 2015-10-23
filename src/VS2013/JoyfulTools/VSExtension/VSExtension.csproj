@@ -201,7 +201,8 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommentedCodeRemover.cs" />
+    <Compile Include="VBCommentedCodeRemover.cs" />
+    <Compile Include="CSharpCommentedCodeRemover.cs" />
     <Compile Include="GuidList.cs" />
     <Compile Include="MultipleBlankLinesRemover.cs" />
     <Compile Include="MenuCommands\RemoveMultipleBlankLinesCommand.cs" />
@@ -214,9 +215,9 @@
     <Compile Include="MenuPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdID.cs" />
-    <Compile Include="VisualStudioEnvironment.cs" />
-    <Compile Include="VisualStudioMessageBox.cs" />
-    <Compile Include="VisualStudioServicesProvider.cs" />
+    <Compile Include="Common\VisualStudioEnvironment.cs" />
+    <Compile Include="Common\VisualStudioMessageBox.cs" />
+    <Compile Include="Common\VisualStudioServicesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">

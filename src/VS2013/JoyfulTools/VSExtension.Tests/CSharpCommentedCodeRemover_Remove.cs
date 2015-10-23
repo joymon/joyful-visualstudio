@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace VSExtension.Tests
 {
     [TestClass]
-    public class CommentedCodeRemover_RemoveFromCSCode
+    public class CSharpCommentedCodeRemover_Remove
     {
         [TestMethod]
         public void WhenInputIsNotInCodeFormat_ReturnInput()
@@ -18,7 +18,7 @@ namespace VSExtension.Tests
 How are you doing hello";
             string expected = @"#$@%$;
 How are you doing hello";
-            string actualOutput = CommentedCodeRemover.RemoveFromCSCode(inputCode);
+            string actualOutput = CSharpCommentedCodeRemover.Remove(inputCode);
             Assert.AreEqual(expected, actualOutput);
         }
         [TestMethod]
@@ -30,7 +30,7 @@ a++;";
             string expected = @"var a;
 
 a++;";
-            string actualOutput = CommentedCodeRemover.RemoveFromCSCode(inputCode);
+            string actualOutput = CSharpCommentedCodeRemover.Remove(inputCode);
             Assert.AreEqual(expected, actualOutput);
 
         }
@@ -47,7 +47,7 @@ a++;
 a++;
 a++;
 ";
-            string actualOutput = CommentedCodeRemover.RemoveFromCSCode(inputCode);
+            string actualOutput = CSharpCommentedCodeRemover.Remove(inputCode);
             Assert.AreEqual(expected, actualOutput);
         }
         [TestMethod]
@@ -67,7 +67,7 @@ a++;
         {
             var a=10;a++;
         }";
-            string actualOutput = CommentedCodeRemover.RemoveFromCSCode(inputCode);
+            string actualOutput = CSharpCommentedCodeRemover.Remove(inputCode);
             Assert.AreEqual(expected, actualOutput);
         }
     }
