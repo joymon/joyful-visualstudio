@@ -37,31 +37,31 @@ namespace MultipleBlankLinesToSingle_IntegrationTests
         /// <summary>
         ///A test for lauching the command and closing the associated dialogbox
         ///</summary>
-        [TestMethod()]
-        [HostType("VS IDE")]
-        public void LaunchCommand()
-        {
-            UIThreadInvoker.Invoke((ThreadInvoker)delegate()
-            {
-                CommandID menuItemCmd = new CommandID(GuidList.guidMultipleBlankLinesToSingleCmdSet, (int)PkgCmdIDList.cmdidRemMulBlanks);
+        //[TestMethod()]
+        //[HostType("VS IDE")]
+        //public void LaunchCommand()
+        //{
+        //    UIThreadInvoker.Invoke((ThreadInvoker)delegate()
+        //    {
+        //        CommandID menuItemCmd = new CommandID(GuidList.guidMultipleBlankLinesToSingleCmdSet, (int)PkgCmdIDList.cmdidRemMulBlanks);
 
-                // Create the DialogBoxListener Thread.
-                string expectedDialogBoxText = string.Format(CultureInfo.CurrentCulture, "{0}\n\nInside {1}.MenuItemCallback()", "MultipleBlankLinesToSingle", "Joymon.MultipleBlankLinesToSingle.MultipleBlankLinesToSinglePackage");
-                DialogBoxPurger purger = new DialogBoxPurger(NativeMethods.IDOK, expectedDialogBoxText);
+        //        // Create the DialogBoxListener Thread.
+        //        string expectedDialogBoxText = string.Format(CultureInfo.CurrentCulture, "{0}\n\nInside {1}.MenuItemCallback()", "MultipleBlankLinesToSingle", "Joymon.MultipleBlankLinesToSingle.MultipleBlankLinesToSinglePackage");
+        //        DialogBoxPurger purger = new DialogBoxPurger(NativeMethods.IDOK, expectedDialogBoxText);
 
-                try
-                {
-                    purger.Start();
+        //        try
+        //        {
+        //            purger.Start();
 
-                    TestUtils testUtils = new TestUtils();
-                    testUtils.ExecuteCommand(menuItemCmd);
-                }
-                finally
-                {
-                    Assert.IsTrue(purger.WaitForDialogThreadToTerminate(), "The dialog box has not shown");
-                }
-            });
-        }
+        //            TestUtils testUtils = new TestUtils();
+        //            testUtils.ExecuteCommand(menuItemCmd);
+        //        }
+        //        finally
+        //        {
+        //            Assert.IsTrue(purger.WaitForDialogThreadToTerminate(), "The dialog box has not shown");
+        //        }
+        //    });
+        //}
 
     }
 }

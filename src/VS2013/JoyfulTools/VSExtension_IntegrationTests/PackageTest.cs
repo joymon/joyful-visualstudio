@@ -37,24 +37,24 @@ namespace MultipleBlankLinesToSingle_IntegrationTests
             }
         }
 
-        [TestMethod]
-        [HostType("VS IDE")]
-        public void PackageLoadTest()
-        {
-            UIThreadInvoker.Invoke((ThreadInvoker)delegate()
-            {
+        //[TestMethod]
+        //[HostType("VS IDE")]
+        //public void PackageLoadTest()
+        //{
+        //    UIThreadInvoker.Invoke((ThreadInvoker)delegate()
+        //    {
 
-                //Get the Shell Service
-                IVsShell shellService = VsIdeTestHostContext.ServiceProvider.GetService(typeof(SVsShell)) as IVsShell;
-                Assert.IsNotNull(shellService);
+        //        //Get the Shell Service
+        //        IVsShell shellService = VsIdeTestHostContext.ServiceProvider.GetService(typeof(SVsShell)) as IVsShell;
+        //        Assert.IsNotNull(shellService,"shellService became null");
 
-                //Validate package load
-                IVsPackage package;
-                Guid packageGuid = new Guid(GuidList.guidMultipleBlankLinesToSinglePkgString);
-                Assert.IsTrue(0 == shellService.LoadPackage(ref packageGuid, out package));
-                Assert.IsNotNull(package, "Package failed to load");
+        //        //Validate package load
+        //        IVsPackage package;
+        //        Guid packageGuid = new Guid(GuidList.guidMultipleBlankLinesToSinglePkgString);
+        //        Assert.IsTrue(0 == shellService.LoadPackage(ref packageGuid, out package));
+        //        Assert.IsNotNull(package, "Joyful Tools for Visual Sudio failed to load");
 
-            });
-        }
+        //    });
+        //}
     }
 }
