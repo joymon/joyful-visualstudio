@@ -65,6 +65,7 @@ namespace JoyfulTools.VSExtension
             if (null != service.Value)
             {
                 service.Value.AddCommand(new RemoveMultipleBlankLinesCommand());
+                service.Value.AddCommand(new RemoveCommentedCodeCommand());
             }
         }
         #endregion

@@ -12,7 +12,7 @@
     <RootNamespace>JoyfulTools.VSExtension</RootNamespace>
     <AssemblyName>JoyfulTools.VSExtension</AssemblyName>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\Extras\Key.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -203,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonUtilities\StringExtensions.cs" />
+    <Compile Include="MenuCommands\RemoveCommentedCodeCommand.cs" />
     <Compile Include="VBCommentedCodeRemover.cs" />
     <Compile Include="CSharpCommentedCodeRemover.cs" />
     <Compile Include="GuidList.cs" />
@@ -237,9 +238,6 @@
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
     <VSCTCompile Include="MultipleBlankLinesToSingle.vsct">

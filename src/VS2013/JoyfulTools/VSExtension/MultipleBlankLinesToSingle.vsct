@@ -70,6 +70,15 @@
           <ButtonText>Remove multiple blank lines</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidMultipleBlankLinesToSingleCmdSet" id="cmdidRemoveCommentedCode" priority="0x0100" type="Button">
+        <Parent guid="guidMultipleBlankLinesToSingleCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages" id="bmpPic1" />
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <CommandName>cmdidRemoveCommentedCode</CommandName>
+          <ButtonText>Remove commented code</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
     <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
     <Bitmaps>
@@ -90,6 +99,7 @@
 
       <IDSymbol name="MyMenuGroup" value="0x1020" />
       <IDSymbol name="cmdidRemMulBlanks" value="0x0100" />
+      <IDSymbol name="cmdidRemoveCommentedCode" value="0x0101"/>
     </GuidSymbol>
     <GuidSymbol name="guidImages" value="{3bca2a8a-9ef3-472b-8e77-6b64f076a9bd}">
       <IDSymbol name="bmpPic1" value="1" />
