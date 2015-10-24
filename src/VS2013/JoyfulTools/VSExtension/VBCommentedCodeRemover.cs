@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.VisualBasic;
 
@@ -19,21 +20,25 @@ namespace JoyfulTools.VSExtension
                                                       where t.Kind() == SyntaxKind.CommentTrivia
                                                       select t;
             SyntaxNode newRoot = tree.GetRoot().ReplaceTrivia(commentTrivia, (t1, t2) => default(SyntaxTrivia));
-            newRoot = RemoveImproperDocumentationTrivia(newRoot);
             return newRoot.ToFullString();
         }
 
         private static SyntaxNode RemoveImproperDocumentationTrivia(SyntaxNode node)
         {
             IEnumerable<SyntaxTrivia> commentTrivia = from t in node.DescendantTrivia()
-                                                      where t.Kind() == SyntaxKind.DocumentationCommentTrivia && IsDocumentationCommentTriviaAndNotProperXML(t)
+                                                      where t.Kind() == SyntaxKind.DocumentationCommentTrivia 
                                                       select t;
             SyntaxNode newRoot = node.ReplaceTrivia(commentTrivia, (t1, t2) => default(SyntaxTrivia));
             return newRoot;
         }
         private static bool IsDocumentationCommentTriviaAndNotProperXML(SyntaxTrivia trivia)
         {
-            return (trivia.Kind() == SyntaxKind.DocumentationCommentTrivia && trivia.ToString().IsValidXml() == false);
+            return (trivia.Kind() == SyntaxKind.DocumentationCommentTrivia &&
+                ( trivia.ToString()).IsValidXml() == false);
         } 
+        private static string WrapWithRootXML(string xmlNodes)
+        {
+            return string.Format("<Wrapper>{0}</Wrapper>", xmlNodes);
+        }
     }
 }
