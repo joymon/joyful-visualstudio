@@ -7,9 +7,47 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js" type="text/javascript"></script>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+       
+    loadProjectDescription("https://api.github.com/repos/joymon/joyful-visualstudio")
+
+    loadReadMe(getGitHubAPIURL());
+
+    function loadReadMe(url) {
+        var contentContainerId = "#main_content";
+
+        $.ajax({
+            url: url,
+            dataType: 'jsonp',
+            success: function (response) {
+                $(contentContainerId).html(GetHTMLFromMarkDown(GetStringFromBase64(response.data.content)));
+            }
+        });
+    }
+    function loadProjectDescription(url) {
+        $.ajax({
+            url: url,
+            dataType: 'jsonp',
+            success: function (response) {
+                $("#desc").html(response.data.description);
+            }
+        });
+    }
+    function getGitHubAPIURL() {
+        return 'https://api.github.com/repos/joymon/joyful-visualstudio/readme';
+    }
+    function GetStringFromBase64(base64) {
+        return atob(base64)
+    }
+    function GetHTMLFromMarkDown(markdownString) {
+        return marked(markdownString)
+    }
+    </script>
     <title>Joyful Tools for VisualStudio by joymon</title>
   </head>
 
@@ -31,12 +69,7 @@
         <hr>
 
         <section id="main_content">
-          <p><a href="https://ci.appveyor.com/project/joymon/joyful-visualstudio"><img src="https://ci.appveyor.com/api/projects/status/ufqa23xufffi3k92?svg=true" alt="Build status"></a></p>
-
-<h1>
-<a id="joyful-tools-for-visualstudio" class="anchor" href="#joyful-tools-for-visualstudio" aria-hidden="true"><span class="octicon octicon-link"></span></a>Joyful Tools for VisualStudio</h1>
-
-<p>Joyful extensions to make Visual Studio more enjoyable</p>
+          
         </section>
 
         <footer>
