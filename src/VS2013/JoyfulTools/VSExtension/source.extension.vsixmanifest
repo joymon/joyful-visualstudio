@@ -3,7 +3,7 @@
   <Identifier Id="4eb4ee6b-e540-423f-9f2e-2ae387102013">
     <Name>Joyful Tools for Visual Studio</Name>
     <Author>Joy George K</Author>
-    <Version>1.0</Version>
+    <Version>1.0.2</Version>
     <Description xml:space="preserve">Joyful Tools to make Visual Studio more enjoyable. The first extension is targetted to remove multiple blank lines or continuous duplicate blank lines.The replacement will be with a single blank line.  
 These continuous line breaks removal can be done using RegEx in Find and Replace window. But the extension makes it easier.
 
@@ -12,11 +12,7 @@ contact : joymon@gmail.com for any queries</Description>
     <MoreInfoUrl>http://joymonscode.blogspot.com</MoreInfoUrl>
     <InstalledByMsi>false</InstalledByMsi>
     <SupportedProducts>
-      <VisualStudio Version="10.0">
-        <Edition>Ultimate</Edition>
-        <Edition>Premium</Edition>
-        <Edition>Pro</Edition>
-      </VisualStudio>
+      
       <VisualStudio Version="12.0">
         <Edition>Ultimate</Edition>
         <Edition>Premium</Edition>
