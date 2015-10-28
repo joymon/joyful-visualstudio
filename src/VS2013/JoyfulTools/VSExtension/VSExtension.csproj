@@ -203,6 +203,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonUtilities\StringExtensions.cs" />
+    <Compile Include="Core\OleMenuCommandBase.cs" />
+    <Compile Include="ExtensionsCommon\VisualStudioEnvironment.cs" />
+    <Compile Include="ExtensionsCommon\VisualStudioMessageBox.cs" />
+    <Compile Include="ExtensionsCommon\VisualStudioServicesProvider.cs" />
     <Compile Include="MenuCommands\RemoveCommentedCodeCommand.cs" />
     <Compile Include="VBCommentedCodeRemover.cs" />
     <Compile Include="CSharpCommentedCodeRemover.cs" />
@@ -218,9 +222,6 @@
     <Compile Include="MenuPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdID.cs" />
-    <Compile Include="ExtensionsCommon\VisualStudioEnvironment.cs" />
-    <Compile Include="ExtensionsCommon\VisualStudioMessageBox.cs" />
-    <Compile Include="ExtensionsCommon\VisualStudioServicesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">

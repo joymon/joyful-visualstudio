@@ -13,26 +13,29 @@ using Microsoft.VisualStudio.TextManager.Interop;
 
 namespace JoyfulTools.VSExtension
 {
-    class RemoveCommentedCodeCommand : OleMenuCommand
+    class RemoveCommentedCodeCommand : OleMenuCommandBase
     {
-        internal RemoveCommentedCodeCommand() : base((sender, args) => { MenuItemCallback(sender, args); },
-            new CommandID(GuidList.guidMultipleBlankLinesToSingleCmdSet, (int)PkgCmdIDList.cmdidRemoveCommentedCode))
+        internal RemoveCommentedCodeCommand()
+            : base(new CommandID(GuidList.guidMultipleBlankLinesToSingleCmdSet, (int)PkgCmdIDList.cmdidRemoveCommentedCode))
         {
-            this.BeforeQueryStatus += OleMenuCommand_BeforeQueryStatus;
-        }
 
-        private void OleMenuCommand_BeforeQueryStatus(object sender, EventArgs e)
+        }
+        #region OleDBCommandBase Overrides
+        protected override void OnBeforeQueryStatus(object sender, EventArgs e)
         {
             EnableMeIfThereIsFileOpenedInVisualStudio();
         }
+        protected override void OnMenuClicked(object sender, EventArgs args)
+        {
+            RemoveCommentedCode();
+        }
+        #endregion
+
         private void EnableMeIfThereIsFileOpenedInVisualStudio()
         {
             this.Enabled = string.IsNullOrWhiteSpace(VisualStudioEnvironment.GetCurrentFileNameUsingDTE()) ? false : true;
         }
-        private static void MenuItemCallback(object sender, EventArgs args)
-        {
-            (sender as RemoveCommentedCodeCommand).RemoveCommentedCode();
-        }
+
         internal void RemoveCommentedCode()
         {
             string text = GetContentsFromActiveVisualStudioEditor();
