@@ -14,18 +14,18 @@ using Microsoft.VisualStudio.TextManager.Interop;
 
 namespace JoyfulTools.VSExtension
 {
-    class RemoveMultipleBlankLinesCommand : OleMenuCommand
+    class RemoveMultipleBlankLinesCommand : OleMenuCommandBase
     {
         #region Constructor
-        public RemoveMultipleBlankLinesCommand() : base((sender, args) => { MenuItemCallback(sender, args); },
-            new CommandID(GuidList.guidMultipleBlankLinesToSingleCmdSet, (int)PkgCmdIDList.cmdidRemMulBlanks))
+        public RemoveMultipleBlankLinesCommand() 
+            : base(new CommandID(GuidList.guidMultipleBlankLinesToSingleCmdSet, (int)PkgCmdIDList.cmdidRemMulBlanks))
         {
-            this.BeforeQueryStatus += OleMenuCommand_BeforeQueryStatus;
+            
         }
         #endregion
 
-        #region MenuCommand Related
-        private void OleMenuCommand_BeforeQueryStatus(object sender, EventArgs e)
+        #region MenuCommand override
+        protected override void OnBeforeQueryStatus(object sender, EventArgs e)
         {
             EnableMeIfThereIsFileOpenedInVisualStudio();
         }
@@ -39,9 +39,9 @@ namespace JoyfulTools.VSExtension
         /// See the Initialize method to see how the menu item is associated to this function using
         /// the OleMenuCommandService service and the MenuCommand class.
         /// </summary>
-        private static void MenuItemCallback(object sender, EventArgs e)
+        protected override void OnMenuClicked(object sender, EventArgs e)
         {
-            (sender as RemoveMultipleBlankLinesCommand).ReplaceMultipleBlankLinesWithOne();
+            ReplaceMultipleBlankLinesWithOne();
         }
         #endregion
 
