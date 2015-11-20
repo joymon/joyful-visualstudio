@@ -204,10 +204,12 @@
   <ItemGroup>
     <Compile Include="CommonUtilities\StringExtensions.cs" />
     <Compile Include="Core\OleMenuCommandBase.cs" />
+    <Compile Include="CSharpClassExtractor.cs" />
     <Compile Include="ExtensionsCommon\VisualStudioEnvironment.cs" />
     <Compile Include="ExtensionsCommon\VisualStudioMessageBox.cs" />
     <Compile Include="ExtensionsCommon\VisualStudioServicesProvider.cs" />
     <Compile Include="MenuCommands\RemoveCommentedCodeCommand.cs" />
+    <Compile Include="MoveClassToFile.cs" />
     <Compile Include="VBCommentedCodeRemover.cs" />
     <Compile Include="CSharpCommentedCodeRemover.cs" />
     <Compile Include="GuidList.cs" />
