@@ -24,7 +24,8 @@
         return 'https://api.github.com/repos/joymon/joyful-visualstudio/readme';
     }
     function GetStringFromBase64(base64) {
-        return atob(base64)
+        return Base64.decode(base64);
+        //return atob(base64)
     }
     function GetHTMLFromMarkDown(markdownString) {
         return marked(markdownString)
