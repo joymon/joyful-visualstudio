@@ -20,7 +20,7 @@ Visual Studio 2013 (All flavors)
 ### Option 1 - Using Visual Studio Extension Manager
 
 1. Tools -> Extensions and Updates to open Visual Studio Extension Manager
-2. Section "Online" to search for "Joyful Tools"
+2. Goto section "Online" to search for "Joyful Tools"
 3. Install the extension and restart Visual Studio.
 
 ### Option 2 - Download and manual install
