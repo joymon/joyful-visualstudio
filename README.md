@@ -1,4 +1,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/ufqa23xufffi3k92?svg=true)](https://ci.appveyor.com/project/joymon/joyful-visualstudio)
+
+> As Visual Studio Code is getting more and more features and familiarity, investing into traditional Visual Studio doesn't make sense. So archiving this repository.   
+
 # Joyful Tools for VisualStudio
 Joyful Tools to make Visual Studio more enjoyable
 
